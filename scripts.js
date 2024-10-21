@@ -278,3 +278,40 @@ document.addEventListener('DOMContentLoaded', function() {
     // Inicializar la renderización de incidencias
     renderIncidencias();
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+    // URL de la API con tu clave API y aeropuerto
+    const apiKey = "9eef21e320b55e643c3d93d313317346"; // Reemplaza con tu clave API
+    const apiUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=33.44&lon=-94.04&appid=9eef21e320b55e643c3d93d313317346`;
+
+    // Función para convertir tiempo Unix a formato legible
+    function unixToTime(unixTime) {
+        const date = new Date(unixTime * 1000);
+        return date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+    }
+
+    // Llamada a la API
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            // Extraer datos del objeto "current" en la respuesta
+            const currentWeather = data.current;
+            
+            // Mostrar los datos en los elementos HTML
+            document.getElementById('temp').textContent = currentWeather.temp;
+            document.getElementById('feels_like').textContent = currentWeather.feels_like;
+            document.getElementById('description').textContent = currentWeather.weather[0].description;
+            document.getElementById('humidity').textContent = currentWeather.humidity;
+            document.getElementById('wind_speed').textContent = currentWeather.wind_speed;
+            document.getElementById('wind_deg').textContent = currentWeather.wind_deg;
+            document.getElementById('visibility').textContent = currentWeather.visibility;
+            document.getElementById('sunrise').textContent = unixToTime(currentWeather.sunrise);
+            document.getElementById('sunset').textContent = unixToTime(currentWeather.sunset);
+        })
+        .catch(error => {
+            console.error("Error al obtener el clima:", error);
+            document.getElementById('weather-info').innerHTML = `<p>Error al cargar el clima.</p>`;
+        });
+});
+
+
