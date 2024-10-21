@@ -276,10 +276,10 @@ body {
 
 .about-section {
     position: relative;
-    background-image: url('IMG2.jpg'); /* Reemplaza con la ruta correcta de tu imagen */
+  background-color: #333;
     background-size: cover;
     background-position: center;
-    background-attachment: fixed; /* Imagen de fondo fija (efecto parallax) */
+
     height: 100vh; /* Ocupar toda la ventana */
     display: flex;
     justify-content: center;
@@ -618,5 +618,6 @@ tbody tr:nth-child(odd) {
         padding: 20px;
     }
 }
+
 
 
