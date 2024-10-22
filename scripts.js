@@ -280,47 +280,44 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 //--------------------------------------------------------------------------------------------//
-// URL de la API con tu APPID
 // URL de la API con tu clave API
-// Clave de la API
 const apiKey = '9eef21e320b55e643c3d93d313317346'; // Reemplaza con tu clave
-const ciudad = 'London,uk'; 
-const apiUrl = `http://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=9eef21e320b55e643c3d93d313317346`;
+const city = 'London,uk'; 
+const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${apiKey}`;
 
 // Función para convertir de Kelvin a Celsius
-function kelvinACelsius(kelvin) {
+function kelvinToCelsius(kelvin) {
     return (kelvin - 273.15).toFixed(2);
 }
 
 // Función para convertir la hora en formato UNIX a una hora legible
-function convertirHora(unixTimestamp, zonaHoraria) {
-    const fecha = new Date((unixTimestamp + zonaHoraria) * 1000);
-    return fecha.toUTCString().slice(17, 22); // Muestra solo horas y minutos
+function convertTime(unixTimestamp, timezoneOffset) {
+    const date = new Date((unixTimestamp + timezoneOffset) * 1000);
+    return date.toUTCString().slice(17, 22); // Muestra solo horas y minutos
 }
 
 // Llamada a la API para obtener los datos del clima
 fetch(apiUrl)
-    .then(respuesta => {
-        if (!respuesta.ok) {
-            throw new Error('Error en la respuesta de la red');
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
         }
-        return respuesta.json();
+        return response.json();
     })
-    .then(datos => {
-        console.log(datos); // Muestra los datos en la consola para depuración
+    .then(data => {
+        console.log(data); // Muestra los datos en la consola para depurar
 
         // Actualiza el contenido del HTML con los datos de la API
-        document.getElementById('nombre-ciudad').textContent = datos.name;
-        document.getElementById('coordenadas').textContent = `${datos.coord.lat}, ${datos.coord.lon}`;
-        document.getElementById('temperatura').textContent = kelvinACelsius(datos.main.temp);
-        document.getElementById('sensacion-termica').textContent = kelvinACelsius(datos.main.feels_like);
-        document.getElementById('descripcion-clima').textContent = datos.weather[0].description;
-        document.getElementById('velocidad-viento').textContent = datos.wind.speed;
-        document.getElementById('humedad').textContent = datos.main.humidity;
-        document.getElementById('amanecer').textContent = convertirHora(datos.sys.sunrise, datos.timezone);
-        document.getElementById('atardecer').textContent = convertirHora(datos.sys.sunset, datos.timezone);
+        document.getElementById('city-name').textContent = data.name;
+        document.getElementById('coordinates').textContent = `${data.coord.lat}, ${data.coord.lon}`;
+        document.getElementById('temperature').textContent = kelvinToCelsius(data.main.temp);
+        document.getElementById('feels-like').textContent = kelvinToCelsius(data.main.feels_like);
+        document.getElementById('weather-description').textContent = data.weather[0].description;
+        document.getElementById('wind-speed').textContent = data.wind.speed;
+        document.getElementById('humidity').textContent = data.main.humidity;
+        document.getElementById('sunrise').textContent = convertTime(data.sys.sunrise, data.timezone);
+        document.getElementById('sunset').textContent = convertTime(data.sys.sunset, data.timezone);
     })
     .catch(error => {
-        console.error('Error al obtener los datos del clima:', error);
+        console.error('Error fetching the weather data:', error);
     });
-
