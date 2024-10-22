@@ -282,7 +282,7 @@ document.addEventListener('DOMContentLoaded', function() {
 //--------------------------------------------------------------------------------------------//
 // URL de la API con tu clave API
 const apiKey = '9eef21e320b55e643c3d93d313317346'; // Reemplaza con tu clave
-const city = 'London,uk'; 
+const city = 'Bogota,co'; 
 const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${apiKey}`;
 
 // Función para convertir de Kelvin a Celsius
