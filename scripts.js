@@ -309,7 +309,7 @@ fetch(apiUrl)
 
         // Actualiza el contenido del HTML con los datos de la API
         document.getElementById('city-name').textContent = data.name;
-        document.getElementById('coordinates').textContent = `${data.coord.lat}, ${data.coord.lon}`;
+        
         document.getElementById('temperature').textContent = kelvinToCelsius(data.main.temp);
         document.getElementById('feels-like').textContent = kelvinToCelsius(data.main.feels_like);
         document.getElementById('weather-description').textContent = data.weather[0].description;
