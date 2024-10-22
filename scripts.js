@@ -285,7 +285,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Clave de la API
 const apiKey = '9eef21e320b55e643c3d93d313317346'; // Reemplaza con tu clave
 const ciudad = 'London,uk'; 
-const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&APPID=${apiKey}`;
+const apiUrl = `http://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=9eef21e320b55e643c3d93d313317346`;
 
 // Función para convertir de Kelvin a Celsius
 function kelvinACelsius(kelvin) {
